@@ -1,7 +1,14 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from pathlib import Path
 
-df = pd.read_csv("metrics.csv")
+# Paths
+DATA_PATH = Path("data/metrics.csv")
+CHARTS_PATH = Path("charts")
+CHARTS_PATH.mkdir(exist_ok=True)
+
+# Load data
+df = pd.read_csv(DATA_PATH)
 
 # Convert pace mm:ss to minutes
 def pace_to_minutes(p):
@@ -14,18 +21,18 @@ df["pace_min"] = df["avg_pace"].apply(pace_to_minutes)
 plt.figure()
 plt.plot(df["date"], df["distance_km"], marker="o")
 plt.xticks(rotation=45)
-plt.title("Distance per Day")
+plt.title("Distance per Day (km)")
 plt.tight_layout()
-plt.savefig("charts/distance.png")
+plt.savefig(CHARTS_PATH / "distance.png")
 plt.close()
 
 # Avg HR
 plt.figure()
 plt.plot(df["date"], df["avg_hr"], marker="o")
 plt.xticks(rotation=45)
-plt.title("Average Heart Rate")
+plt.title("Average Heart Rate (bpm)")
 plt.tight_layout()
-plt.savefig("charts/avg_hr.png")
+plt.savefig(CHARTS_PATH / "avg_hr.png")
 plt.close()
 
 # Pace
@@ -34,5 +41,5 @@ plt.plot(df["date"], df["pace_min"], marker="o")
 plt.xticks(rotation=45)
 plt.title("Average Pace (min/km)")
 plt.tight_layout()
-plt.savefig("charts/avg_pace.png")
+plt.savefig(CHARTS_PATH / "avg_pace.png")
 plt.close()
