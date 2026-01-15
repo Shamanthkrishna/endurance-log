@@ -20,29 +20,39 @@ def pace_to_minutes(p):
 
 df["pace_min"] = df["avg_pace"].apply(pace_to_minutes)
 
-# Distance
-plt.figure()
-plt.plot(df["datetime"], df["distance_km"], marker="o")
-plt.xticks(rotation=45)
-plt.title("Distance per Session (km)")
-plt.tight_layout()
-plt.savefig(CHARTS_PATH / "distance.png")
-plt.close()
+# Create figure
+fig, ax1 = plt.subplots(figsize=(12, 6))
 
-# Avg HR
-plt.figure()
-plt.plot(df["datetime"], df["avg_hr"], marker="o")
-plt.xticks(rotation=45)
-plt.title("Average Heart Rate (bpm)")
-plt.tight_layout()
-plt.savefig(CHARTS_PATH / "avg_hr.png")
-plt.close()
+# Distance (left axis)
+ax1.plot(df["datetime"], df["distance_km"], color="tab:blue", marker="o", label="Distance (km)")
+ax1.set_ylabel("Distance (km)", color="tab:blue")
+ax1.tick_params(axis="y", labelcolor="tab:blue")
 
-# Pace
-plt.figure()
-plt.plot(df["datetime"], df["pace_min"], marker="o")
+# HR (right axis)
+ax2 = ax1.twinx()
+ax2.plot(df["datetime"], df["avg_hr"], color="tab:red", marker="o", label="Avg HR (bpm)")
+ax2.set_ylabel("Heart Rate (bpm)", color="tab:red")
+ax2.tick_params(axis="y", labelcolor="tab:red")
+
+# Pace (third axis)
+ax3 = ax1.twinx()
+ax3.spines["right"].set_position(("outward", 60))
+ax3.plot(df["datetime"], df["pace_min"], color="tab:green", marker="o", label="Avg Pace (min/km)")
+ax3.set_ylabel("Pace (min/km)", color="tab:green")
+ax3.tick_params(axis="y", labelcolor="tab:green")
+
+# X-axis
+ax1.set_xlabel("Session Time")
 plt.xticks(rotation=45)
-plt.title("Average Pace (min/km)")
+
+# Title
+plt.title("Session Metrics Overview")
+
+# Legend (manual)
+lines = ax1.get_lines() + ax2.get_lines() + ax3.get_lines()
+labels = [line.get_label() for line in lines]
+plt.legend(lines, labels, loc="upper left")
+
 plt.tight_layout()
-plt.savefig(CHARTS_PATH / "avg_pace.png")
+plt.savefig(CHARTS_PATH / "session_overview.png")
 plt.close()
