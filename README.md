@@ -14,3 +14,4 @@ A personal endurance training log with automated performance tracking.
 ## Data
 Raw daily metrics live in `data/metrics.csv`.  
 Daily narrative logs live in `logs/`.
+ 
