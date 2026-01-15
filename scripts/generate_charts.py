@@ -19,7 +19,7 @@ df["pace_min"] = df["avg_pace"].apply(pace_to_minutes)
 
 # Distance
 plt.figure()
-plt.plot(df["date"], df["distance_km"], marker="o")
+plt.plot(df["datetime"], df["distance_km"], marker="o")
 plt.xticks(rotation=45)
 plt.title("Distance per Day (km)")
 plt.tight_layout()
@@ -28,7 +28,7 @@ plt.close()
 
 # Avg HR
 plt.figure()
-plt.plot(df["date"], df["avg_hr"], marker="o")
+plt.plot(df["datetime"], df["avg_hr"], marker="o")
 plt.xticks(rotation=45)
 plt.title("Average Heart Rate (bpm)")
 plt.tight_layout()
