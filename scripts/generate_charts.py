@@ -37,7 +37,7 @@ plt.close()
 
 # Pace
 plt.figure()
-plt.plot(df["date"], df["pace_min"], marker="o")
+plt.plot(df["datetime"], df["pace_min"], marker="o")
 plt.xticks(rotation=45)
 plt.title("Average Pace (min/km)")
 plt.tight_layout()
