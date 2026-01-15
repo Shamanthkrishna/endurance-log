@@ -3,13 +3,13 @@
 A personal endurance training log with automated performance tracking.
 
 ## Distance
-![Distance](./charts/distance.png?v=1)
+![Distance](charts/distance.png)
 
 ## Average Heart Rate
-![Average Heart Rate](./charts/avg_hr.png?v=1)
+![Average Heart Rate](charts/avg_hr.png)
 
 ## Average Pace
-![Average Pace](./charts/avg_pace.png?v=1)
+![Average Pace](charts/avg_pace.png)
 
 ## Data
 Raw daily metrics live in `data/metrics.csv`.  
