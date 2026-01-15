@@ -8,12 +8,15 @@ CHARTS_PATH = Path("charts")
 CHARTS_PATH.mkdir(exist_ok=True)
 
 # Load data
-df = pd.read_csv(DATA_PATH)
+df = pd.read_csv(DATA_PATH, parse_dates=["datetime"])
+df = df.sort_values("datetime")
 
 # Convert pace mm:ss to minutes
 def pace_to_minutes(p):
-    m, s = p.split(":")
-    return int(m) + int(s)/60
+    if pd.isna(p):
+        return None
+    m, s = p.strip().split(":")
+    return int(m) + int(s) / 60
 
 df["pace_min"] = df["avg_pace"].apply(pace_to_minutes)
 
@@ -21,7 +24,7 @@ df["pace_min"] = df["avg_pace"].apply(pace_to_minutes)
 plt.figure()
 plt.plot(df["datetime"], df["distance_km"], marker="o")
 plt.xticks(rotation=45)
-plt.title("Distance per Day (km)")
+plt.title("Distance per Session (km)")
 plt.tight_layout()
 plt.savefig(CHARTS_PATH / "distance.png")
 plt.close()
